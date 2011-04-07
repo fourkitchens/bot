@@ -1,0 +1,11 @@
+; $Id: private_download.info,v 1.1 2009/08/16 03:22:37 bacteriaman Exp $
+name = Private Download
+description = Provides private download directory when the file system is configured for public download access.
+core = 6.x
+
+; Information added by drupal.org packaging script on 2010-08-20
+version = "6.x-1.2"
+core = "6.x"
+project = "private_download"
+datestamp = "1282276292"
+

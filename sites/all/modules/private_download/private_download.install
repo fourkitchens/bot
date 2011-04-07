@@ -1,0 +1,17 @@
+<?php
+// $Id: private_download.install,v 1.1 2009/08/16 03:22:37 bacteriaman Exp $
+
+/**
+ * @file
+ * The private_download module install file, which handles the install/uninstall tasks.
+ *
+ */
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function private_download_uninstall() {
+  variable_del('private_download_directory');
+  variable_del('private_download_htaccess');
+  variable_del('private_download_header');
+}

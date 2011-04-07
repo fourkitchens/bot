@@ -1,0 +1,15 @@
+<?php
+// $Id: bot_social.install,v 1.1 2010/09/05 20:01:12 garrettalbright Exp $
+
+/**
+ * @file
+ * .install file for Bot Social.
+ */
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function bot_social_uninstall() {
+  // Delete our cached data.
+  cache_clear_all('bot_social_', 'cache', TRUE);
+}

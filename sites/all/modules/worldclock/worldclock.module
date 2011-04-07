@@ -1,0 +1,549 @@
+<?php
+// $Id: worldclock.module,v 1.1.4.17 2009/11/09 08:56:54 flevour Exp $
+
+/**
+ * @file
+ * World Clock module - displays a world clock block
+ *
+ * Module by: Hideki Ito (PIXTURE STUDIO)
+ * Mailto: hide@pixture.com
+ * Home Page: http://www.pixture.com/
+ *
+ */
+
+define("INDEX_NAME",   0);
+define("INDEX_GMT",    1);
+define("INDEX_DST",    2);
+define("INDEX_SMON",   3);
+define("INDEX_SNTH",   4);
+define("INDEX_SDOW",   5);
+define("INDEX_STIME",  6);
+define("INDEX_EMON",   7);
+define("INDEX_ENTH",   8);
+define("INDEX_EDOW",   9);
+define("INDEX_ETIME", 10);
+
+  // Note: wc_location array
+  //
+  //    Name      Country or area name
+  //    GMT Diff    GMT time difference -12 to +12 (can be decimal numbers)
+  //    DST Y/N     0=No DST, 1=Has DST
+  //    DST Start   Describes when the DST starts
+  //        Mon   1 to 12 (0 is used for no DST countries)
+  //        Nth   1=1st, 2=2nd, 3=3rd, 9=Last
+  //        DOW   Day of the week (0=Sun, 1=Mon, 2=Tue... 6=Sat)
+  //        Time  0=0:00AM, 1=1:00AM, 2=2:00AM.....
+  //    DST End     Describes when the DST ends
+  //        Mon   1 to 12 (0 is used for no DST countries)
+  //        Nth   1=1st, 2=2nd, 3=3rd, 9=Last
+  //        DOW   Day of the week (0=Sun, 1=Mon, 2=Tue... 6=Sat)
+  //        Time  0=0:00AM, 1=1:00AM, 2=2:00AM.....
+  //
+  $GLOBALS['_worldclock_location'] = array(
+    //     Name                 GMT  DST ----- Start ------  ------ End -------
+    //                          Diff Y/N  Mon Nth DOW Time    Mon Nth DOW Time
+    array( t('-Not Selected-'),   0,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Afghanistan'),    4.5,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Argentina'),       -3,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Australia ET'),    10,  1,  10,  9,  0,   2,     3,  9,  0,   3 ),
+    array( t('Australia CT'),   9.5,  1,  10,  9,  0,   2,     3,  9,  0,   3 ),
+    array( t('Australia WT'),     8,  1,  10,  9,  0,   2,     3,  9,  0,   3 ),
+    array( t('Austria'),          1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Bangladesh'),       6,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Belgium'),          1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Bhutan'),           6,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Bolivia'),         -4,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Brazil'),          -3,  1,  10,  3,  0,   0,     2,  3,  0,   0 ),
+    array( t('Bulgaria'),         2,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Cambodia'),         7,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Cameroon'),         1,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Canada AB'),       -7,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada BC'),       -8,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada MB'),       -6,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada NB'),       -4,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada NF'),     -3.5,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada NT'),       -7,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada NS'),       -4,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada NU(M)'),    -7,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada NU(C)'),    -6,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada NU(E)'),    -5,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada ON(E)'),    -5,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada ON(W)'),    -6,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada PE'),       -4,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada QC'),       -5,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Canada QC(E)'),    -4,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Canada SK'),       -7,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Canada SK(L)'),    -6,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Canada YK'),       -8,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Chile'),           -4,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('China'),            8,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Christmas Islands'),7,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Colombia'),        -5,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Cook Islands'),   -10,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Costa Rica'),      -6,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Croatia'),          1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Czech Republic'),   1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Denmark'),          1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Ecuador'),         -5,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Egypt'),            2,  1,   4,  9,  5,   0,     9,  9,  4,   0 ),
+    array( t('Ethiopia'),         3,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Fiji'),            12,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Finland'),          2,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('France'),           1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Germany'),          1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Ghana'),            0,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Greece'),           2,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Hungary'),          1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Iceland'),          0,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('India'),          5.5,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Iran'),           3.5,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Iraq'),             3,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Israel'),           2,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Italy'),            1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Japan'),            9,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Jordan'),           2,  1,   3,  9,  4,   0,    10,  9,  5,   1 ),
+    array( t('Kenya'),            3,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Korea'),            9,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Laos'),             7,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Libya'),            2,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Madagascar'),       3,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Malaysia'),         8,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Marshall Islands'),12,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Mauritius'),        4,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Monaco'),           1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Mongolia'),         8,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Morocco'),          0,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Myanmar'),        6.3,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Nepal'),         5.45,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Netherlands'),       1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('New Caledonia'),   11,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('New Zealand'),     12,  1,   9,  9,  0,   2,     4,  1,  0,   3 ),
+    array( t('Nigeria'),          1,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Norway'),           1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Oman'),             4,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Pakistan'),         5,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Palau'),            9,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Panama'),          -5,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Papau New Guinea'),10,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Peru'),            -5,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Philippines'),      8,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Poland'),          1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Portugal'),         0,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Romania'),          2,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Rwanda'),           2,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Russia Moscow'),    3,  1,   3,  9,  0,   2,    10,  9,  0,   3 ),
+    array( t('Samoa'),          -11,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Saudi Arabia'),     3,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Senegal'),          0,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Seychells'),        4,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Singapore'),        8,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Solomon Islands'), 11,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('South Africa'),     2,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Spain'),            1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Sudan'),            3,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Sweden'),           1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Switzerland'),      1,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('Taiwan'),           8,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Thailand'),         7,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Tonga'),           13,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Turkey'),           2,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('UAE'),              3,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('UK'),               0,  1,   3,  9,  0,   1,    10,  9,  0,   1 ),
+    array( t('USA Alaska'),      -9,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('USA Hawaii'),     -10,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('USA PT'),          -8,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('USA MT'),          -7,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('USA CT'),          -6,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('USA ET'),          -5,  1,   3,  2,  0,   2,    11,  1,  0,   2 ),
+    array( t('Vanuatu'),         11,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Venezuela'),       -4.5,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Vietnam'),          7,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+    array( t('Zambia'),           2,  0,   0,  0,  0,   0,     0,  0,  0,   0 ),
+  );
+
+/**
+ * Construct an array for location pulldown menu
+ */
+function _worldclock_get_location_options() {
+  // add this array to $GLOBALS so that other functions can access it
+  global $_worldclock_location;
+  $loc_array = array();
+
+  $numitems = count($_worldclock_location);
+  for ($i = 0 ; $i < $numitems ; $i++) {
+    $loc = $_worldclock_location[$i];
+    $loc_name = $loc[INDEX_NAME];
+    $loc_array[] = $loc_name;
+  }
+  return $loc_array;
+}
+
+/**
+ * Construct location information text string
+ */
+function _worldclock_get_location_info($loc) {
+  // in: $loc - location record array
+  $nth_array = array('', t('1st '), t('2nd '), t('3rd '), t('4th '), '', '', '', '', t('last '));
+  $dow_array = array(t('Sunday'), t('Monday'), t('Tuesday'), t('Wednesday'), t('Thursday'), t('Friday'), t('Saturday'));
+  $mon_array = array('', t('January'), t('February'), t('March'), t('April'), t('May'), t('June'), t('July'), t('August'), t('September'), t('October'), t('November'), t('December'));
+
+  $output = '';
+  if ($loc[INDEX_GMT] >= 0) {
+    $output .= t('GMT +') . $loc[INDEX_GMT] .', ';
+  }
+  else {
+    $output .= t('GMT ') . $loc[INDEX_GMT] .', ';
+  }
+  if ($loc[INDEX_DST] == 0) {
+    $output .= t('No DST ');
+  }
+  else {
+    $output .= t('DST ');
+    // now add DST start and end information
+    $output .= t(' from !stime:00AM on !snth !sdow in !smonth',
+                array('!stime'  => $loc[INDEX_STIME],
+                      '!snth'   => $nth_array[$loc[INDEX_SNTH]],
+                      '!sdow'   => $dow_array[$loc[INDEX_SDOW]],
+                      '!smonth' => $mon_array[$loc[INDEX_SMON]]));
+    $output .= t(' to !etime:00AM on !enth !edow in !emonth',
+                array('!etime'  => $loc[INDEX_ETIME],
+                      '!enth'   => $nth_array[$loc[INDEX_ENTH]],
+                      '!edow'   => $dow_array[$loc[INDEX_EDOW]],
+                      '!emonth' => $mon_array[$loc[INDEX_EMON]]));
+  }
+  return $output;
+}
+
+/**
+ * Implementation of hook_help
+ */
+function worldclock_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case "admin/help#worldclock":
+      $output = '<p>'. t("Displays a world clock") .'</p>';
+      break;
+  }
+  return $output;
+}
+
+/**
+ * Implementation of hook_block
+ */
+function worldclock_block($op = 'list', $delta = 0) {
+  global $_worldclock_location;
+  if ($op == 'list') {
+    $block[0]['info'] = t('World Clock');
+    return $block;
+  }
+  else if ($op == 'view') {
+    $block['subject'] = t('World Clock');
+            
+    // get option
+    $maxnum    = variable_get('worldclock_maxnum', 4);
+    $footnote  = variable_get('worldclock_footnote', '');
+    $showzebra = variable_get('worldclock_showzebra', 0);
+    $showdst   = variable_get('worldclock_showdst', 0);
+    $dststr    = variable_get('worldclock_dststr', '*');
+    $timestr   = variable_get('worldclock_format', 'm/d h:i A');
+    if ($timestr == 'custom') {
+      $timestr = variable_get('worldclock_timestr', 'm/d h:i A');
+    }
+    
+    // output block content
+    $output = theme('clocks_list', $_worldclock_location, $maxnum, $showzebra, $timestr, $footnote);
+
+    // set javascript settings
+    $settings['locations'] = array();
+    $settings['maxnum'] = $maxnum;
+    $settings['time_str'] = $timestr;
+    $settings['show_dst'] = $showdst;
+    $settings['dst_str'] = $dststr;
+
+    $days_short = array(t('Sun'), t('Mon'), t('Tue'), t('Wed'), t('Thu'), t('Fri'), t('Sat'));
+    $days_long  = array(t('Sunday'), t('Monday'), t('Tueday'), t('Wedday'), t('Thuday'), t('Friday'), t('Satday'));
+    $months_short = array(t('Jan'), t('Feb'), t('Mar'), t('Apr'), t('May'), t('Jun'), t('Jul'), t('Aug'), t('Sep'), t('Oct'), t('Nov'), t('Dec'));
+    $months_long  = array(t('January'), t('February'), t('March'), t('April'), t('May'), t('June'), t('July'), t('August'), t('September'), t('October'), t('November'), t('December'));
+
+    $settings['sdow'] = $days_short;
+    $settings['smon'] = $months_short;
+    $settings['ldow'] = $days_long;
+    $settings['lmon'] = $months_long;
+
+    for ($j = 1 ; $j <= $maxnum ; $j++) {
+      $loc_no = variable_get('worldclock_location_'. $j, 0);
+      // get the location record
+      if ($loc_no > 0) {
+        // JS expects arrays and we have an object: temporarily transform the location
+        // object to array so there's no need to change JS
+        $settings['locations'][$j] = array_merge(array($loc_no), $_worldclock_location[$loc_no]);
+      }
+    }
+    
+    // start timer
+    $js = 'setTimeout("DisplayClock(Drupal.settings.maxnum, Drupal.settings.time_str, Drupal.settings.show_dst, Drupal.settings.dst_str, Drupal.settings.locations)", 100);';
+
+    drupal_add_js($js, 'inline', 'footer');
+    drupal_add_js($settings, 'setting');
+
+    $block['content'] = $output;
+    return $block;
+  } // end of $op == 'view'
+}
+
+/**
+ * Implementation of hook_theme
+ */
+
+function worldclock_theme() {
+  return array(
+    'clocks_list' => array(
+      'arguments' => array('wc_location' => NULL, 'maxnum' => NULL, 'showzebra' => NULL, 'timestr' => NULL, 'footnote' => NULL),
+    ),
+  );
+}
+
+/**
+ * Theming function for block
+ */
+
+function theme_clocks_list($_worldclock_location, $maxnum, $showzebra, $timestr, $footnote) {
+  $output = '';
+  // output table HTML
+  $tr_class = '';
+  $output .= '<table id="wordclock">';
+  for ($j = 1 ; $j <= $maxnum ; $j++) {
+    if ($showzebra) {
+      if ($j % 2) $tr_class = 'odd';
+      else $tr_class = 'even';
+    }
+    $loc_no = variable_get('worldclock_location_'. $j, 0);
+    if ($loc_no > 0) {
+      // get location name
+      $loc = $_worldclock_location[$loc_no];
+      $loc_name  = $loc[INDEX_NAME];
+      $output .= '<tr class="'. $tr_class .'">';
+      $output .= '<td class="worldclock_location">'. $loc_name  .'</td>';
+      $output .= '<td class="worldclock_time">';
+      $output .= '<span id="worldclock'. $j .'"></span></td>';
+      $output .= '</tr>';
+    }
+  }
+  $output .= '</table>';
+  if ($footnote) {
+    $output .= '<span id="worldclock_footnote">'. $footnote .'</span>';
+  }
+  return $output;
+}
+
+/**
+ * Module settings (admin page)
+ */
+function worldclock_admin() {
+  global $_worldclock_location;
+
+  $maxnum  = variable_get('worldclock_maxnum', 4);
+  $format  = variable_get('worldclock_format', 'm/d h:i A');
+  $timestr = variable_get('worldclock_timestr', 'm/d h:i A');
+
+  $form['location'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Location settings'),
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['location']['worldclock_maxnum'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Maximum number of locations'),
+    '#description' => t('If you modify this value, please press "Save configuration" to update the form below.'),
+    '#default_value' => $maxnum,
+    '#size' => 2,
+    '#maxlength' => 2,
+  );
+
+  $form['location']['worldclock_note'] = array(
+    '#type' => 'markup',
+    '#value' => t('You may leave the location unselected if you do not need to display the time.'),
+  );
+
+  for ($j = 1 ; $j <= $maxnum ; $j++) {
+    // show some information
+    $loc_no = variable_get('worldclock_location_'. $j, 0);
+    $loc_info = '';
+    if ($loc_no) {
+      $loc = $_worldclock_location[$loc_no];
+      $loc_info = _worldclock_get_location_info($loc);
+    }
+    // create a pull-down menu
+    $form['location']['worldclock_location_'. $j] = array(
+      '#type' => 'select',
+      '#title' => t('Location ') . $j,
+      '#default_value' => variable_get('worldclock_location_'. $j, 0),
+      '#options' => _worldclock_get_location_options(),
+      '#description' => $loc_info,
+    );
+  }
+
+  $format_desc = t('Specify the custom time string format. You can use the following format characters.');
+  $format_desc .= '<ul>';
+  $format_desc .= t(' Y - Year (4 digits) eg: 2008') .'<br />';
+  $format_desc .= t(' y - Year (2 digits) eg: 08') .'<br />';
+  $format_desc .= t(' M - Month (3 letters) Jan - Dec') .'<br />';
+  $format_desc .= t(' m - Month (2 digits with leading zeros) 01 - 12') .'<br />';
+  $format_desc .= t(' n - Month (without leading zeros) 1 - 12') .'<br />';
+  $format_desc .= t(' d - Date (2 digits with leading zeros) 01 - 31') .'<br />';
+  $format_desc .= t(' j - Date (without leading zeros) 1 - 31') .'<br />';
+  $format_desc .= t(' D - Day of the week (short) SUN - SAT') .'<br />';
+  $format_desc .= t(' h - Hour (12 hour format with leading zeros) 01 - 12') .'<br />';
+  $format_desc .= t(' H - Hour (24 hour format with leading zeros) 00 - 23') .'<br />';
+  $format_desc .= t(' g - Hour (12 hour format without leading zeros) 1 - 12') .'<br />';
+  $format_desc .= t(' G - Hour (24 hour format without leading zeros) 0 - 23') .'<br />';
+  $format_desc .= t(' i - Minutes (with leading zeros) 00 - 59') .'<br />';
+  $format_desc .= t(' s - Seconds (with leading zeros) 00 - 59') .'<br />';
+  $format_desc .= '</ul>';
+  $format_desc .= t('Any non alphanumeric characters including space character are just copied to the output.') .'<br />';
+
+  $form['display'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Display settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['display']['worldclock_format'] = array(
+    '#type' => 'select',
+    '#title' => t('Display format'),
+    '#options' => array(
+      'm/d h:i A'   => t('04/07 01:23 PM'),
+      'm/d h:i a'   => t('04/07 01:23 pm'),
+      'm/d h:i:s A' => t('04/07 01:23:45 PM'),
+      'm/d h:i:s a' => t('04/07 01:23:45 pm'),
+      'm/d H:i'     => t('04/07 13:23'),
+      'm/d H:i:s'   => t('04/07 13:23:45'),
+
+      'M d h:i A'   => t('Apr 07 01:23 PM'),
+      'M d h:i a'   => t('Apr 07 01:23 pm'),
+      'M d h:i:s A' => t('Apr 07 01:23:45 PM'),
+      'M d h:i:s a' => t('Apr 07 01:23:45 pm'),
+      'M d H:i'     => t('Apr 07 13:23'),
+      'M d H:i:s'   => t('Apr 07 13:23:45'),
+
+      'd/m h:i A'   => t('07/04 01:23 PM'),
+      'd/m h:i a'   => t('07/04 01:23 pm'),
+      'd/m h:i:s A' => t('07/04 01:23:45 PM'),
+      'd/m h:i:s a' => t('07/04 01:23:45 pm'),
+      'd/m H:i'     => t('07/04 13:23'),
+      'd/m H:i:s'   => t('07/04 13:23:45'),
+
+      'd M h:i A'   => t('07 Apr 01:23 PM'),
+      'd M h:i a'   => t('07 Apr 01:23 pm'),
+      'd M h:i:s A' => t('07 Apr 01:23:45 PM'),
+      'd M h:i:s a' => t('07 Apr 01:23:45 pm'),
+      'd M H:i'     => t('07 Apr 13:23'),
+      'd M H:i:s'   => t('07 Apr 13:23:45'),
+
+      'custom'      => t('Custom format'),
+    ),
+    '#description' => t('Date/time used for the menu item is not a current time, but an example..'),
+    '#default_value' => $format,
+    '#attributes' => array('onchange' => 'ChangeFormat(this)'),
+  );
+
+  if ($format == 'custom') {
+    $timestr_style = 'visibility: visible; overflow: hidden;';
+  }
+  else {
+    $timestr_style = 'visibility: hidden; height: 0px; overflow: hidden;';
+  }
+
+  $timestr_example = date($timestr);
+
+  $form['display']['worldclock_timestr'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom format string'),
+    '#size' => 20,
+    '#maxlength' => 20,
+    '#field_suffix' => t(' Example: <b>!str1</b>', array('!str1' => date($timestr))),
+    '#default_value' => $timestr,
+    '#description' => $format_desc,
+    '#prefix' => '<div id="worldclock_timestr_div" style="'. $timestr_style .'">',
+    '#suffix' => '</div>',
+  );
+
+  $form['display']['worldclock_showdst'] = array(
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('worldclock_showdst', 0),
+    '#title' => t('Display DST (Daylight Saving Time)'),
+    '#description' => t('If checked, DST marker is displayed after the time when the location is under the DST.'),
+  );
+
+  $form['display']['worldclock_dststr'] = array(
+    '#type' => 'textfield',
+    '#title' => t('DST marker'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => variable_get('worldclock_dststr', '*'),
+    '#description' => t('Specify the DST marker (Symbol, character or a short text). HTML tags are allowed.'),
+  );
+
+  $form['display']['worldclock_footnote'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Footnote'),
+    '#size' => 60,
+    '#maxlength' => 60,
+    '#default_value' => variable_get('worldclock_footnote', ''),
+    '#description' => t('Footnote, if any (for example, an explanation about DST marker). HTML tags are allowed.'),
+  );
+
+  $form['advanced'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Advanced settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['advanced']['worldclock_showzebra'] = array(
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('worldclock_showzebra', 0),
+    '#title' => t('Add even and odd class to &lt;tr&gt; tag.'),
+    '#description' => t('If checked, odd and even class is added to the &lt;tr&gt; tag of each table row.'),
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Validation function for worldclock_admin form
+ */
+function worldclock_admin_validate($form, &$form_state) {
+  if (!is_numeric($form_state['values']['worldclock_maxnum'])) {
+    form_set_error('worldclock_maxnum', t('This field requires a numeric value.'));
+  }
+}
+
+
+/**
+ * Implementation of hook_menu
+ */
+function worldclock_menu() {
+  $items = array();
+
+  $items['admin/settings/worldclock'] = array(
+    'title' => 'World Clock',
+    'description' => 'Displays a world clock.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('worldclock_admin'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_init
+ */
+function worldclock_init() {
+  // TODO: currently JS aggregation is disabled because the code doesn't work when it is aggregated. Change back to 
+  // default values when workdclock.js will be rewritten.
+  drupal_add_js(drupal_get_path('module', 'worldclock') . '/worldclock.js', 'module', 'header', FALSE, TRUE, FALSE);
+}

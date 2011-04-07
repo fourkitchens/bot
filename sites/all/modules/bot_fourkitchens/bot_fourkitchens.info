@@ -1,0 +1,5 @@
+name = Bot Four Kitchens
+package = Bot
+description = "Hot tricks and sweet licks for the Four Kitchens IRC chan."
+dependencies[] = bot
+core = 6.x

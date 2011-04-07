@@ -1,0 +1,16 @@
+<?php
+// $Id: worldclock.install,v 1.1.2.1 2008/12/03 15:27:45 flevour Exp $
+
+/**
+ * Implementation of hook_uninstall
+ */
+function worldclock_uninstall() {
+  variable_del('wc_location');
+
+  // delete all related variables from db: use query instead of a series of
+  // variable_del's to remove all possible worldclock_location_*
+  $result = db_query("SELECT * FROM {variable} WHERE name LIKE 'worldclock_%%'");
+  while ($variable = db_fetch_object($result)) {
+    variable_del($variable->name);
+  }
+}

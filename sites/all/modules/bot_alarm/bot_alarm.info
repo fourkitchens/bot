@@ -1,0 +1,4 @@
+name = Bot Alarm
+package = Bot
+description = "Set alarms and let your bot notify you."
+core = 6.x

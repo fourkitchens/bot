@@ -1,0 +1,14 @@
+ChangeLog
+
+1.3		05/08/2008
+
+* Clean up code to follow coding standard and removed closing php tag
+* Fixed Iran time from 3 to 3.5
+* Added 'HTML tags are allowed' to help text
+* Moved Javascript installation from hook_init to hook_menu to avoid
+  error of drupal_get_path() when the cache is enabled. (for Drupal 5.x)
+  For Drupal 6.x, we still uses hook_init.
+* Changed Australia and US time zone name from PST -> PT ... since S 
+  means Standard and should not be used for Daylight saving time.
+  During DST, PDT is the correct exresssion instead of PST.
+

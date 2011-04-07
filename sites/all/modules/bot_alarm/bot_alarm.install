@@ -1,0 +1,57 @@
+<?php
+
+function bot_alarm_install() {
+  drupal_install_schema('bot_alarm');
+}
+
+function bot_alarm_uninstall() {
+  drupal_uninstall_schema('bot_alarm');
+}
+
+function bot_alarm_schema() {
+  $schema['bot_alarm'] = array(
+    'description' => t('The single table necessary for alarm storage.'),
+    'fields' => array(
+      'id' => array(
+        'description' => t('A unique ID for this alarm.'),
+        'not null'    => TRUE,
+        'size'        => 'big',
+        'type'        => 'serial',
+        'unsigned'    => TRUE,
+      ),
+      'message' => array(
+        'default'     => '',
+        'description' => t('Message to send when the alarm sounds.'),
+        'not null'    => TRUE,
+        'type'        => 'text',
+      ),
+      'hour' => array(
+        'default'     => 0,
+        'description' => t('Hour'),
+        'not null'    => TRUE,
+        'type'        => 'int',
+      ),
+      'minute' => array(
+        'default'     => 0,
+        'description' => t('Minute'),
+        'not null'    => TRUE,
+        'type'        => 'int'
+      ),
+      'days' => array(
+        'default'     => '',
+        'description' => t('Days the alarm should sound.'),
+        'not null'    => TRUE,
+        'type'        => 'text',
+      ),
+      'channels' => array(
+        'default'     => '',
+        'description' => t('Channels in which this alarm should sound.'),
+        'not null'    => TRUE,
+        'type'        => 'text',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}

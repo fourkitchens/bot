@@ -1,0 +1,897 @@
+# $Id: ja.po,v 1.1.2.2 2008/04/27 04:03:51 pixture Exp $
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  worldclock.module: n/a
+#  worldclock.info: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: World Clock\n"
+"POT-Creation-Date: 2008-04-26 16:41-0700\n"
+"PO-Revision-Date: 2008-04-26 18:02-0800\n"
+"Last-Translator: Pixture Studio <hide@pixture.com>\n"
+"Language-Team: PIXTURE STUDIO <hide@pixture.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Japanese\n"
+"X-Poedit-Country: JAPAN\n"
+
+#: worldclock.module:53
+msgid "-Not Selected-"
+msgstr "-未選択-"
+
+#: worldclock.module:54
+msgid "Afghanistan"
+msgstr "アフガニスタン"
+
+#: worldclock.module:55
+msgid "Argentina"
+msgstr "アルゼンチン"
+
+#: worldclock.module:56
+msgid "Australia EST"
+msgstr "オーストラリア(EST)"
+
+#: worldclock.module:57
+msgid "Australia CST"
+msgstr "オーストラリア(CST)"
+
+#: worldclock.module:58
+msgid "Australia WST"
+msgstr "オーストラリア(WST)"
+
+#: worldclock.module:59
+msgid "Austria"
+msgstr "オーストリア"
+
+#: worldclock.module:60
+msgid "Bangladesh"
+msgstr "バングラデッシュ"
+
+#: worldclock.module:61
+msgid "Belgium"
+msgstr "ベルギー"
+
+#: worldclock.module:62
+msgid "Bhutan"
+msgstr "ブータン"
+
+#: worldclock.module:63
+msgid "Bolivia"
+msgstr "ボリビア"
+
+#: worldclock.module:64
+msgid "Brazil"
+msgstr "ブラジル"
+
+#: worldclock.module:65
+msgid "Bulgaria"
+msgstr "ブルガリア"
+
+#: worldclock.module:66
+msgid "Cambodia"
+msgstr "カンボジア"
+
+#: worldclock.module:67
+msgid "Cameroon"
+msgstr "カメルーン"
+
+#: worldclock.module:68
+msgid "Canada AB"
+msgstr "カナダ AB"
+
+#: worldclock.module:69
+msgid "Canada BC"
+msgstr "カナダ BC"
+
+#: worldclock.module:70
+msgid "Canada MB"
+msgstr "カナダ MB"
+
+#: worldclock.module:71
+msgid "Canada NB"
+msgstr "カナダ NB"
+
+#: worldclock.module:72
+msgid "Canada NF"
+msgstr "カナダ NF"
+
+#: worldclock.module:73
+msgid "Canada NT"
+msgstr "カナダ NT"
+
+#: worldclock.module:74
+msgid "Canada NS"
+msgstr "カナダ NS"
+
+#: worldclock.module:75
+msgid "Canada NU(M)"
+msgstr "カナダ NU(M)"
+
+#: worldclock.module:76
+msgid "Canada NU(C)"
+msgstr "カナダ NU(C)"
+
+#: worldclock.module:77
+msgid "Canada NU(E)"
+msgstr "カナダ NU(E)"
+
+#: worldclock.module:78
+msgid "Canada ON(E)"
+msgstr "カナダ ON(E)"
+
+#: worldclock.module:79
+msgid "Canada ON(W)"
+msgstr "カナダ ON(W)"
+
+#: worldclock.module:80
+msgid "Canada PE"
+msgstr "カナダ PE"
+
+#: worldclock.module:81
+msgid "Canada QC"
+msgstr "カナダ QC"
+
+#: worldclock.module:82
+msgid "Canada QC(E)"
+msgstr "カナダ QC(E)"
+
+#: worldclock.module:83
+msgid "Canada SK"
+msgstr "カナダ SK"
+
+#: worldclock.module:84
+msgid "Canada SK(L)"
+msgstr "カナダ SK(L)"
+
+#: worldclock.module:85
+msgid "Canada YK"
+msgstr "カナダ YK"
+
+#: worldclock.module:86
+msgid "Chile"
+msgstr "チリ"
+
+#: worldclock.module:87
+msgid "China"
+msgstr "中国"
+
+#: worldclock.module:88
+msgid "Colombia"
+msgstr "コロンビア"
+
+#: worldclock.module:89
+msgid "Costa Rica"
+msgstr "コスタリカ"
+
+#: worldclock.module:90
+msgid "Croatia"
+msgstr "クロアチア"
+
+#: worldclock.module:91
+msgid "Czech Republic"
+msgstr "チェコ"
+
+#: worldclock.module:92
+msgid "Denmark"
+msgstr "デンマーク"
+
+#: worldclock.module:93
+msgid "Ecuador"
+msgstr "エクアドル"
+
+#: worldclock.module:94
+msgid "Egypt"
+msgstr "エジプト"
+
+#: worldclock.module:95
+msgid "Ethiopia"
+msgstr "エチオピア"
+
+#: worldclock.module:96
+msgid "Fiji"
+msgstr "フィジー"
+
+#: worldclock.module:97
+msgid "Finland"
+msgstr "フィンランド"
+
+#: worldclock.module:98
+msgid "France"
+msgstr "フランス"
+
+#: worldclock.module:99
+msgid "Germany"
+msgstr "ドイツ"
+
+#: worldclock.module:100
+msgid "Ghana"
+msgstr "ガーナ"
+
+#: worldclock.module:101
+msgid "Greece"
+msgstr "ギリシャ"
+
+#: worldclock.module:102
+msgid "Hungary"
+msgstr "ハンガリー"
+
+#: worldclock.module:103
+msgid "Iceland"
+msgstr "アイスランド"
+
+#: worldclock.module:104
+msgid "India"
+msgstr "インド"
+
+#: worldclock.module:105
+msgid "Iran"
+msgstr "イラン"
+
+#: worldclock.module:106
+msgid "Israel"
+msgstr "イスラエル"
+
+#: worldclock.module:107
+msgid "Italy"
+msgstr "イタリア"
+
+#: worldclock.module:108
+msgid "Japan"
+msgstr "日本"
+
+#: worldclock.module:109
+msgid "Jordan"
+msgstr "ヨルダン"
+
+#: worldclock.module:110
+msgid "Kenya"
+msgstr "ケニア"
+
+#: worldclock.module:111
+msgid "Korea"
+msgstr "韓国"
+
+#: worldclock.module:112
+msgid "Laos"
+msgstr "ラオス"
+
+#: worldclock.module:113
+msgid "Libya"
+msgstr "リビア"
+
+#: worldclock.module:114
+msgid "Madagascar"
+msgstr "マダガスカル"
+
+#: worldclock.module:115
+msgid "Malaysia"
+msgstr "マレーシア"
+
+#: worldclock.module:116
+msgid "Mauritius"
+msgstr "モーリシャス"
+
+#: worldclock.module:117
+msgid "Monaco"
+msgstr "モナコ"
+
+#: worldclock.module:118
+msgid "Mongolia"
+msgstr "モンゴリア"
+
+#: worldclock.module:119
+msgid "Morocco"
+msgstr "モロッコ"
+
+#: worldclock.module:120
+msgid "Myanmar"
+msgstr "ミャンマー"
+
+#: worldclock.module:121
+msgid "Nepal"
+msgstr "ネパール"
+
+#: worldclock.module:122
+msgid "Netherland"
+msgstr "オランダ"
+
+#: worldclock.module:123
+msgid "New Caledonia"
+msgstr "ニューカレドニア"
+
+#: worldclock.module:124
+msgid "New Zealand"
+msgstr "ニュージーランド"
+
+#: worldclock.module:125
+msgid "Nigeria"
+msgstr "ナイジェリア"
+
+#: worldclock.module:126
+msgid "Norway"
+msgstr "ノルウェー"
+
+#: worldclock.module:127
+msgid "Oman"
+msgstr "オマーン"
+
+#: worldclock.module:128
+msgid "Pakistan"
+msgstr "パキスタン"
+
+#: worldclock.module:129
+msgid "Panama"
+msgstr "パナマ"
+
+#: worldclock.module:130
+msgid "Peru"
+msgstr "ペルー"
+
+#: worldclock.module:131
+msgid "Philippines"
+msgstr "フィリピン"
+
+#: worldclock.module:132
+msgid "Porland"
+msgstr "ポーランド"
+
+#: worldclock.module:133
+msgid "Portugal"
+msgstr "ポルトガル"
+
+#: worldclock.module:134
+msgid "Romania"
+msgstr "ルーマニア"
+
+#: worldclock.module:135
+msgid "Rwanda"
+msgstr "ルワンダ"
+
+#: worldclock.module:136
+msgid "Russia Moscow"
+msgstr "ロシア"
+
+#: worldclock.module:137
+msgid "Saudi Arabia"
+msgstr "サウジアラビア"
+
+#: worldclock.module:138
+msgid "Senegal"
+msgstr "セネガル"
+
+#: worldclock.module:139
+msgid "Seychells"
+msgstr "セイシェル"
+
+#: worldclock.module:140
+msgid "Singapore"
+msgstr "シンガポール"
+
+#: worldclock.module:141
+msgid "South Africa"
+msgstr "南アフリカ"
+
+#: worldclock.module:142
+msgid "Spain"
+msgstr "スペイン"
+
+#: worldclock.module:143
+msgid "Sudan"
+msgstr "スーダン"
+
+#: worldclock.module:144
+msgid "Sweden"
+msgstr "スウェーデン"
+
+#: worldclock.module:145
+msgid "Switherland"
+msgstr "スイス"
+
+#: worldclock.module:146
+msgid "Taiwan"
+msgstr "台湾"
+
+#: worldclock.module:147
+msgid "Thailand"
+msgstr "タイ"
+
+#: worldclock.module:148
+msgid "Tonga"
+msgstr "トンガ"
+
+#: worldclock.module:149
+msgid "Turkey"
+msgstr "トルコ"
+
+#: worldclock.module:150
+msgid "UK"
+msgstr "イギリス"
+
+#: worldclock.module:151
+msgid "USA Alaska"
+msgstr "米国(アラスカ)"
+
+#: worldclock.module:152
+msgid "USA Hawaii"
+msgstr "米国(ハワイ)"
+
+#: worldclock.module:153
+msgid "USA PST"
+msgstr "米国(PST)"
+
+#: worldclock.module:154
+msgid "USA MST"
+msgstr "米国(MST)"
+
+#: worldclock.module:155
+msgid "USA CST"
+msgstr "米国(CST)"
+
+#: worldclock.module:156
+msgid "USA EST"
+msgstr "米国(EST)"
+
+#: worldclock.module:157
+msgid "Venezuela"
+msgstr "ベネゼイラ"
+
+#: worldclock.module:158
+msgid "Vietnam"
+msgstr "ベトナム"
+
+#: worldclock.module:159
+msgid "Zambia"
+msgstr "ザンビア"
+
+#: worldclock.module:189
+msgid "1st "
+msgstr "第一"
+
+#: worldclock.module:189
+msgid "2nd "
+msgstr "第二"
+
+#: worldclock.module:189
+msgid "3rd "
+msgstr "第三"
+
+#: worldclock.module:189
+msgid "4th "
+msgstr "第四"
+
+#: worldclock.module:190
+msgid "last "
+msgstr "最終"
+
+#: worldclock.module:191
+msgid "Sunday"
+msgstr "日曜日"
+
+#: worldclock.module:191
+msgid "Monday"
+msgstr "月曜日"
+
+#: worldclock.module:191
+msgid "Tuesday"
+msgstr "火曜日"
+
+#: worldclock.module:191
+msgid "Wednesday"
+msgstr "水曜日"
+
+#: worldclock.module:192
+msgid "Thursday"
+msgstr "木曜日"
+
+#: worldclock.module:192
+msgid "Friday"
+msgstr "金曜日"
+
+#: worldclock.module:192
+msgid "Saturday"
+msgstr "土曜日"
+
+#: worldclock.module:193
+msgid "January"
+msgstr "1月"
+
+#: worldclock.module:193
+msgid "February"
+msgstr "2月"
+
+#: worldclock.module:193
+msgid "March"
+msgstr "3月"
+
+#: worldclock.module:193
+msgid "April"
+msgstr "4月"
+
+#: worldclock.module:194;336
+msgid "May"
+msgstr "5月"
+
+#: worldclock.module:194
+msgid "June"
+msgstr "6月"
+
+#: worldclock.module:194
+msgid "July"
+msgstr "7月"
+
+#: worldclock.module:194
+msgid "August"
+msgstr "8月"
+
+#: worldclock.module:195
+msgid "September"
+msgstr "9月"
+
+#: worldclock.module:195
+msgid "October"
+msgstr "10月"
+
+#: worldclock.module:195
+msgid "November"
+msgstr "11月"
+
+#: worldclock.module:195
+msgid "December"
+msgstr "12月"
+
+#: worldclock.module:198
+msgid "GMT +"
+msgstr ""
+
+#: worldclock.module:201
+msgid "GMT "
+msgstr ""
+
+#: worldclock.module:204
+msgid "No DST "
+msgstr "DST無し"
+
+#: worldclock.module:207
+msgid "DST "
+msgstr "DST有り　　"
+
+#: worldclock.module:209
+msgid " from !stime:00AM on !snth !sdow in !smonth"
+msgstr "!smonthの!snth!sdow!stime:00AMから"
+
+#: worldclock.module:214
+msgid " to !etime:00AM on !enth !edow in !emonth"
+msgstr "!emonthの!enth!edow!etime:00AMまで"
+
+#: worldclock.module:234
+msgid "Displays a world clock"
+msgstr "世界時計を表示する"
+
+#: worldclock.module:262;266;571
+#: worldclock.info:0
+msgid "World Clock"
+msgstr "世界時計"
+
+#: worldclock.module:324
+msgid "Sun"
+msgstr ""
+
+#: worldclock.module:325
+msgid "Mon"
+msgstr ""
+
+#: worldclock.module:326
+msgid "Tue"
+msgstr ""
+
+#: worldclock.module:327
+msgid "Wed"
+msgstr ""
+
+#: worldclock.module:328
+msgid "Thu"
+msgstr ""
+
+#: worldclock.module:329
+msgid "Fri"
+msgstr ""
+
+#: worldclock.module:330
+msgid "Sat"
+msgstr ""
+
+#: worldclock.module:332
+msgid "Jan"
+msgstr ""
+
+#: worldclock.module:333
+msgid "Feb"
+msgstr ""
+
+#: worldclock.module:334
+msgid "Mar"
+msgstr ""
+
+#: worldclock.module:335
+msgid "Apr"
+msgstr ""
+
+#: worldclock.module:337
+msgid "Jun"
+msgstr ""
+
+#: worldclock.module:338
+msgid "Jul"
+msgstr ""
+
+#: worldclock.module:339
+msgid "Aug"
+msgstr ""
+
+#: worldclock.module:340
+msgid "Sep"
+msgstr ""
+
+#: worldclock.module:341
+msgid "Oct"
+msgstr ""
+
+#: worldclock.module:342
+msgid "Nov"
+msgstr ""
+
+#: worldclock.module:343
+msgid "Dec"
+msgstr ""
+
+#: worldclock.module:398
+msgid "Location settings"
+msgstr "場所の設定"
+
+#: worldclock.module:405
+msgid "Maximum number of locations"
+msgstr "場所の最大数"
+
+#: worldclock.module:412
+msgid "You may leave the location unselected if you do not need to display the time."
+msgstr "時間を表示しなくていい場合は、場所を未選択にすることも可能です。"
+
+#: worldclock.module:426
+msgid "Location "
+msgstr "場所"
+
+#: worldclock.module:433
+msgid "Specify the custom time string format. You can use the following format characters."
+msgstr "カスタム書式文字列を指定してください。以下のフォーマット文字が使用可能です"
+
+#: worldclock.module:435
+msgid " Y - Year (4 digits) eg: 2008"
+msgstr " Y - 年 (4桁) 例: 2008"
+
+#: worldclock.module:436
+msgid " y - Year (2 digits) eg: 08"
+msgstr " y - 年 (2桁) 例: 08"
+
+#: worldclock.module:437
+msgid " M - Month (3 letters) Jan - Dec"
+msgstr " M - 月 1月～12月"
+
+#: worldclock.module:438
+msgid " m - Month (2 digits with leading zeros) 01 - 12"
+msgstr " m - 月 (2桁 先頭にゼロが付く) 01～12"
+
+#: worldclock.module:439
+msgid " n - Month (without leading zeros) 1 - 12"
+msgstr " n - 月 (先頭にゼロが付かない) 1～12"
+
+#: worldclock.module:440
+msgid " d - Date (2 digits with leading zeros) 01 - 31"
+msgstr " d - 日 (2桁 先頭にゼロが付く) 01～31"
+
+#: worldclock.module:441
+msgid " j - Date (without leading zeros) 1 - 31"
+msgstr " j - 日 (先頭にゼロが付かない) 1～31"
+
+#: worldclock.module:442
+msgid " D - Day of the week (short) SUN - SAT"
+msgstr " D - 曜日(1文字) 日～土"
+
+#: worldclock.module:443
+msgid " h - Hour (12 hour format with leading zeros) 01 - 12"
+msgstr " h - 時 (12時間制 2桁 先頭にゼロが付く) 01～12"
+
+#: worldclock.module:444
+msgid " H - Hour (24 hour format with leading zeros) 00 - 23"
+msgstr " H - 時 (24時間制 2桁 先頭にゼロが付く) 00～23"
+
+#: worldclock.module:445
+msgid " g - Hour (12 hour format without leading zeros) 1 - 12"
+msgstr " g - 時 (12時間制 先頭にゼロが付かない) 1～12"
+
+#: worldclock.module:446
+msgid " G - Hour (24 hour format without leading zeros) 0 - 23"
+msgstr " G - 時 (24時間制 先頭にゼロが付かない) 0～23"
+
+#: worldclock.module:447
+msgid " i - Minutes (with leading zeros) 00 - 59"
+msgstr " i - 分 (2桁 先頭にゼロが付く) 00～59"
+
+#: worldclock.module:448
+msgid " s - Seconds (with leading zeros) 00 - 59"
+msgstr " s - 秒 (2桁 先頭にゼロが付く) 00～59"
+
+#: worldclock.module:450
+msgid "Any non alphanumeric characters including space character are just copied to the output."
+msgstr "書式文字列に含まれる英数字以外の文字(スペースを含む)はそのまま出力文字列にコピーされます"
+
+#: worldclock.module:454
+msgid "Display settings"
+msgstr "表示設定"
+
+#: worldclock.module:461
+msgid "Display format"
+msgstr "表示形式"
+
+#: worldclock.module:463
+msgid "04/07 01:23 PM"
+msgstr ""
+
+#: worldclock.module:464
+msgid "04/07 01:23 pm"
+msgstr ""
+
+#: worldclock.module:465
+msgid "04/07 01:23:45 PM"
+msgstr ""
+
+#: worldclock.module:466
+msgid "04/07 01:23:45 pm"
+msgstr ""
+
+#: worldclock.module:467
+msgid "04/07 13:23"
+msgstr ""
+
+#: worldclock.module:468
+msgid "04/07 13:23:45"
+msgstr ""
+
+#: worldclock.module:470
+msgid "Apr 07 01:23 PM"
+msgstr ""
+
+#: worldclock.module:471
+msgid "Apr 07 01:23 pm"
+msgstr ""
+
+#: worldclock.module:472
+msgid "Apr 07 01:23:45 PM"
+msgstr ""
+
+#: worldclock.module:473
+msgid "Apr 07 01:23:45 pm"
+msgstr ""
+
+#: worldclock.module:474
+msgid "Apr 07 13:23"
+msgstr ""
+
+#: worldclock.module:475
+msgid "Apr 07 13:23:45"
+msgstr ""
+
+#: worldclock.module:477
+msgid "07/04 01:23 PM"
+msgstr ""
+
+#: worldclock.module:478
+msgid "07/04 01:23 pm"
+msgstr ""
+
+#: worldclock.module:479
+msgid "07/04 01:23:45 PM"
+msgstr ""
+
+#: worldclock.module:480
+msgid "07/04 01:23:45 pm"
+msgstr ""
+
+#: worldclock.module:481
+msgid "07/04 13:23"
+msgstr ""
+
+#: worldclock.module:482
+msgid "07/04 13:23:45"
+msgstr ""
+
+#: worldclock.module:484
+msgid "07 Apr 01:23 PM"
+msgstr ""
+
+#: worldclock.module:485
+msgid "07 Apr 01:23 pm"
+msgstr ""
+
+#: worldclock.module:486
+msgid "07 Apr 01:23:45 PM"
+msgstr ""
+
+#: worldclock.module:487
+msgid "07 Apr 01:23:45 pm"
+msgstr ""
+
+#: worldclock.module:488
+msgid "07 Apr 13:23"
+msgstr ""
+
+#: worldclock.module:489
+msgid "07 Apr 13:23:45"
+msgstr ""
+
+#: worldclock.module:491
+msgid "Custom format"
+msgstr "カスタム書式"
+
+#: worldclock.module:493
+msgid "Date/time used for the menu item is not a current time, but an example.."
+msgstr "上記のメニューに表示される時間は現在の時間ではありません。あくまでサンプルです。"
+
+#: worldclock.module:509
+msgid "Custom format string"
+msgstr "カスタム書式文字列"
+
+#: worldclock.module:512
+msgid " Example: <b>!str1</b>"
+msgstr " 表示例: <b>!str1</b>"
+
+#: worldclock.module:522
+msgid "Display DST (Daylight Saving Time)"
+msgstr "DST(夏時間)を表示する"
+
+#: worldclock.module:523
+msgid "If checked, DST marker is displayed after the time when the location is under the DST."
+msgstr "チェックされた場合、その場所が現在DSTになっている場合にはDST記号が時間の後ろに追加されます。"
+
+#: worldclock.module:528
+msgid "DST marker"
+msgstr "DST記号"
+
+#: worldclock.module:532
+msgid "Specify the DST marker (Symbol, character or a short text)"
+msgstr "DST記号を指定してください(記号、文字、短いテキストなど)"
+
+#: worldclock.module:537
+msgid "Footnote"
+msgstr "脚注"
+
+#: worldclock.module:541
+msgid "Footnote if any (for example, an explanation about DST marker)"
+msgstr "もし何か表示したい脚注などあれば指定してください（例：DST記号の説明など)"
+
+#: worldclock.module:546
+msgid "Advenced settings"
+msgstr "より詳しい設定"
+
+#: worldclock.module:554
+msgid "Add even and odd class to &lt;tr&gt; tag."
+msgstr "evenとoddを&lt;tr&gt;タグのクラスに追加する"
+
+#: worldclock.module:555
+msgid "If checked, odd and even class is added to the &lt;tr&gt; tag of each table row."
+msgstr "チェックすると、時刻表示の各行の&lt;tr&gt;タグに交互にevenとoddのクラスが追加されます"
+
+#: worldclock.module:572
+#: worldclock.info:0
+msgid "Displays a world clock."
+msgstr "世界時計を表示します"
+
+#~ msgid "from "
+#~ msgstr "　開始日　"
+#~ msgid " to "
+#~ msgstr " ～ 　終了日　"
+

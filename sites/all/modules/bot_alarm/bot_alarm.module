@@ -1,0 +1,156 @@
+<?php
+
+/**
+ * Implementation of hook_irc_bot_cron_faster().
+ */
+function bot_alarm_irc_bot_cron_faster() {
+  $hour = (int) date('G');
+  $minute = (int) date('i');
+  $day = date('l');
+  
+  $result = db_query("SELECT * FROM {bot_alarm} WHERE hour = %d AND minute = %d AND days like '%%%s%%'", $hour, $minute, $day);
+  while ($alarm = db_fetch_object($result)) {
+    $channels = explode(',', $alarm->channels);
+    foreach ($channels as $channel) {
+      bot_message(trim($channel), $alarm->message);
+    }
+  }
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function bot_alarm_menu() {
+  $items = array();
+  
+  $items['admin/settings/bot/alarm'] = array(
+    'title' => 'Bot Alarm',
+    'description' => 'Sound the alarm.',
+    'page callback' => 'bot_alarm_settings',
+    'access arguments' => array('administer bot'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  $items['admin/settings/bot/alarm/delete/%'] = array(
+    'title' => 'Bot Alarm',
+    'page callback' => 'bot_alarm_settings_delete',
+    'page arguments' => array(5),
+    'access arguments' => array('administer bot'),
+    'type' => MENU_CALLBACK,
+  );
+  
+  return $items;
+}
+
+/**
+ * Table to list alarms and form to add new ones.
+ */
+function bot_alarm_settings() {
+  $headers = array(t('Message'), t('Time'), t('Days'), t('Channels'), t('Actions'));
+  
+  $rows = array();
+  
+  $result = db_query('SELECT * FROM {bot_alarm}');
+  while ($alarm = db_fetch_object($result)) {
+    $rows[] = array(
+      $alarm->message,
+      sprintf('%02d:%02d', $alarm->hour, $alarm->minute),
+      $alarm->days,
+      $alarm->channels,
+      l(t('Delete'), 'admin/settings/bot/alarm/delete/' . $alarm->id),
+    );
+  }
+  
+  return theme('table', $headers, $rows, array('id' => 'bot-alarms')) .
+    drupal_get_form('bot_alarm_settings_form');
+}
+
+/**
+ * Add alarm form.
+ */
+function bot_alarm_settings_form() {
+  $form = array();
+  $form['message'] = array(  
+    '#type' => 'textfield',
+    '#title' => t('Message'),
+    '#size' => 60,
+    '#required' => TRUE,
+  );  
+  $form['time'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Time'),
+    '#size' => 5,
+    '#maxlength' => 5, 
+    '#required' => TRUE,
+    '#description' => t('In the form HH:MM.'),
+  );
+  $form['days'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Days'),
+    '#options' => array(
+      'Sunday'    => t('Sunday'),
+      'Monday'    => t('Monday'),
+      'Tuesday'   => t('Tuesday'),
+      'Wednesday' => t('Wednesday'),
+      'Thursday'  => t('Thursday'),
+      'Friday'    => t('Friday'),
+      'Saturday'  => t('Saturday'),
+    ),
+    '#description' => t('Enable days for this alarm.'),
+    '#required' => TRUE,
+  );
+  $form['channels'] = array(  
+    '#type' => 'textfield',
+    '#title' => t('Channels'),
+    '#size' => 60,
+    '#required' => TRUE,
+  );
+  $form['add'] = array(
+    '#type' => 'submit',
+    '#value' => t('Add'),
+  );
+  return $form;
+}
+
+/**
+ * Validate alarm form.
+ */
+function bot_alarm_settings_form_validate($form, &$form_state) {
+  if (!preg_match('/^(0|1|2)?[0-9]:[0-9][0-9]$/', $form_state['values']['time'])) {
+    form_set_error('time', t('Time must be military and in the format HH:MM.'));
+  }
+}
+
+/**
+ * Save new alarm.
+ */
+function bot_alarm_settings_form_submit($form, &$form_state) {
+  list($hour, $minute) = explode(':', $form_state['values']['time']);
+  
+  // There HAS to be a better way to do this.
+  $days = array();
+  foreach ($form_state['values']['days'] as $day => $value) {
+    if ($value) {
+      $days[] = $day;
+    }
+  }
+  
+  $record = (object) array(
+    'message' => $form_state['values']['message'],
+    'hour' => (int) $hour,
+    'minute' => (int) $minute,
+    'days' => implode(', ', $days),
+    'channels' => $form_state['values']['channels'],
+  );
+  
+  drupal_write_record('bot_alarm', $record);
+}
+
+/**
+ * Delete an alarm.
+ */
+function bot_alarm_settings_delete($id) {
+  db_query('DELETE FROM {bot_alarm} WHERE id = %d', $id);
+  drupal_set_message('Alarm deleted.');
+  drupal_goto('admin/settings/bot/alarm');
+}

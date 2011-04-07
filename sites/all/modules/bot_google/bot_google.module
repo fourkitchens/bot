@@ -1,0 +1,64 @@
+<?php
+// $Id: bot_google.module,v 1.1 2009/03/29 11:00:52 Gurpartap Exp $
+
+/**
+ * @file
+ * Search in Google directly in IRC.
+ */
+
+/**
+ * Implementation of hook_help().
+ */
+function bot_google_help($path, $args) {
+  switch ($path) {
+    case 'irc:features':
+      return array(t('Google'));
+    case 'irc:features#google':
+      return t('Search in Google directly in IRC. Syntax: botname: google keywords here');
+  }
+}
+
+function bot_google_irc_msg_channel($data, $from_query = FALSE) {
+  $to = $from_query ? $data->nick : $data->channel;
+  $addressed = bot_name_regexp();
+
+  if (preg_match("/^google (.*)/i", trim($data->message), $matches)) {
+    $keywords = $matches[1];
+  }
+
+  if (preg_match("/^$addressed/i", $data->message) || $from_query) { 
+    if (preg_match("!.*?google (.*)!i", trim($data->message), $matches)) {
+      $keywords = $matches[1];
+    }
+  }
+
+  if (strlen($keywords) > 2) {
+    $search = bot_google_search(urlencode($keywords));
+    if (!empty($search[0]->url)) {
+      $output = chr(2) ."Google" . chr(2) . "'s";
+      $output .= ' lucky result for "' . chr(2) . $keywords . chr(2) . '" is: ' . $search[0]->url;
+      $output .= '. More results at: http://google.com/search?q=' . urlencode($keywords);
+    }
+    else {
+      $output = 'Your search - ' . chr(2) . $keywords . chr(2) . ' - did not match any documents.';
+    }
+    bot_message($to, $output);
+  }
+}
+
+/**
+ * All responses are available via a query.
+ */
+function bot_google_irc_msg_query($data) {
+  bot_google_irc_msg_channel($data, TRUE);
+}
+
+/**
+ * Search Google using the API.
+ */
+function bot_google_search($keywords) {
+  $google = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=$keywords";
+  $result = drupal_http_request($google);
+  $response = json_decode($result->data);
+  return $response->responseData->results;
+}

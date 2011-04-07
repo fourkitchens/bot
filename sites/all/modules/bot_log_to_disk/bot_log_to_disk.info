@@ -1,0 +1,6 @@
+name = Bot Log to Disk
+package = Bot
+description = "Write logs from Bot Log to disk."
+dependencies[] = bot
+dependencies[] = bot_log
+core = 6.x

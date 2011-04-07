@@ -1,0 +1,12 @@
+; $Id: bot_project.info,v 1.1.2.1.2.1 2008/05/02 00:33:47 morbus Exp $
+name = Bot Project
+package = Bot
+dependencies[] = bot
+description = "Enables various project toolkit compatible actions."
+core = 6.x
+; Information added by drupal.org packaging script on 2010-12-24
+version = "6.x-1.2"
+core = "6.x"
+project = "bot"
+datestamp = "1293195851"
+

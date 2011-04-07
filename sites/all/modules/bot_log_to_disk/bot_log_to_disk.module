@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Implementation of hook_cron().
+ */
+function bot_log_to_disk_irc_bot_cron_fastest() {
+  $watermark = variable_get('bot_log_to_disk_watermark', 0);
+  $directory = variable_get('bot_log_to_disk_directory', 'irc_logs');
+  
+  $filename = date('Y-m-d') . '.log';
+  $path = file_create_path($directory);
+  
+  if (file_check_directory($path, FILE_CREATE_DIRECTORY)) {
+    $log = fopen($path . '/' . $filename, 'a+');
+    
+    $result = db_query('SELECT * FROM {bot_log} WHERE id > %d', $watermark);
+    while ($message = db_fetch_array($result)) {
+      fwrite($log, implode('|', $message) . "\n");
+      variable_set('bot_log_to_disk_watermark', $message['id']);
+    }
+    
+    fclose($log);
+  }
+}

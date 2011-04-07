@@ -1,0 +1,12 @@
+; $Id: bot_agotchi.info,v 1.2.2.1.2.2 2008/04/25 01:29:03 morbus Exp $
+name = Botagotchi
+package = Bot
+dependencies[] = bot
+description = "Proper care and feeding lets your botagotchi grow and be happy!"
+core = 6.x
+; Information added by drupal.org packaging script on 2010-12-24
+version = "6.x-1.2"
+core = "6.x"
+project = "bot"
+datestamp = "1293195851"
+

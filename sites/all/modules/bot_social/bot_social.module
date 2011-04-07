@@ -1,0 +1,70 @@
+<?php
+// $Id: bot_social.module,v 1.2 2010/11/13 18:18:51 garrettalbright Exp $
+
+/**
+ * @file
+ * Bot submodule. Fetches and echoes Twitter statuses mentioned in IRC channels.
+ * Caches.
+ */
+
+/**
+ * Implementation of hook_irc_msg_channel(), a Bot hook.
+ */
+function bot_social_irc_msg_channel($data) {
+  // Look for 
+  if (preg_match_all('~\bhttps?://twitter\.com/[\w#!/]*/(\d+)\b~', $data->message, $matches, PREG_SET_ORDER)) {
+    foreach ($matches as $match) {
+      // Perhaps we should actually use our own cache table some time…?
+      $cache_id = 'bot_social_tweet_' . $match[1];
+      $cached = cache_get($cache_id);
+      $now = time();
+      if ($cached == 0 || $cached->expire < $now) {
+        $response = drupal_http_request("http://api.twitter.com/1/statuses/show/{$match[1]}.json", array('User-Agent' => 'Drupal IRC Bot +(http://drupal.com/project/bot)'));
+        if ($response !== FALSE) {
+          if ($response->code == 503) {
+            $message = t('Bot Social: Fail Whale! (503 Service Unavailable)');
+            $expire = $now + 300;
+          }
+          elseif ($response->code == 404) {
+            $message = t('Bot Social: Tweet not found. (404)');
+            $expire = CACHE_PERMANENT;
+          }
+          elseif ($response->code != 200) {
+            $message = t('Bot Social: Unexpected response code. (!code !error)', array('!code' => $response->code, '!error' => $response->error));
+            $expire = $now + 600;
+          }
+          else {
+            $tweet = json_decode($response->data);
+            if ($tweet === NULL) {
+              $message = t('Bot Social: Response data decoding error.');
+              $expire = $now;
+            }
+            else {
+              if (isset($tweet->error)) {
+                $message = t('Bot Social: Twitter error. (!error)', array('!error' => $tweet->error));
+                $expire = $now + 3600;
+              }
+              else {
+                // We're reconstructing the tweet URL instead of just echoing the
+                // one we matched in order to be more correct, since strictly the
+                // username part of the URL can be totally wrong. For example,
+                // if someone says http://twitter.com/foo/status/444 and status
+                // 444 doesn't really belong to foo, we can handle it just fine,
+                // but Twitter can't.
+                $message = t('!url is @!scname (!name): "!status"', array('!url' => "http://twitter.com/#!/{$tweet->user->screen_name}/status/{$tweet->id}", '!scname' => $tweet->user->screen_name, '!name' => $tweet->user->name, '!status' => $tweet->text));
+                // We don't cache successful status fetches forever; Twitter
+                // users can delete tweets they later regret.
+                $expire = $now + 3600;
+              }
+            }
+          }
+        }
+        cache_set($cache_id, $message, 'cache', $expire);
+      }
+      else {
+        $message = /* 'CACHED: ' . */ $cached->data;
+      }
+      bot_message($data->channel, $message);
+    }
+  }
+}
