@@ -129,13 +129,12 @@ function bot_fourkitchens_route_listeners($to, $data) {
   
   foreach (bot_fourkitchens_get_listeners() as $regex => $info) {
     $matches = array();
-    echo "preg_match($regex, $data->message, $matches);\n";
+    
     preg_match($regex, $data->message, $matches);
     if (count($matches)) {
       // Enforce whitelist of present.
       if (count($info['whitelist'])) {
         if (!in_array($data->channel, $info['whitelist'])) {
-          echo "No whitelisted\n";
           continue;
         }
       }
@@ -143,18 +142,13 @@ function bot_fourkitchens_route_listeners($to, $data) {
       // Enforce blacklist if present.
       if (count($info['blacklist'])) {
         if (in_array($data->channel, $info['whitelist'])) {
-          echo "Blacklisted\n";
           continue;
         }
       }
       
       $rand = rand(0, 100);
       if ($info['probability'] == 100 || $rand <= $info['probability']) {
-        echo "Calling " . $info['callback'] . "\n";
         call_user_func_array($info['callback'], array($to, $data, $matches));
-      }
-      else {
-        echo "Failed probability test.  Rolled a $rand, needed a " . $info['probability'];
       }
     }
   }
