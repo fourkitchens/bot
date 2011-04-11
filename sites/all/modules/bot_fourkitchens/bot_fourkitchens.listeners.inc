@@ -1,13 +1,53 @@
 <?php
 
 /**
+ * Order
+ *
+ * Place an order:
+ * @command ?order <order>
+ *
+ * Get a list of all placed orders:
+ * @command ?order
+ */
+function bot_fourkitchens_order($to, $data, $matches) {
+  static $orders = array();
+  $date = date('Y/m/d');
+  
+  // Initialize today's orders.  I'm just like totally okay leaking
+  // the memory of past orders.
+  if (!isset($orders[$date])) {
+    $orders[$date] = array();
+  }
+  
+  // Place an order
+  if (count($matches) > 1 && $matches[1]) {
+    $orders[$date][$data->nick] = $matches[1];
+    bot_message($to, $data->nick . ': Thanks for your order!');
+  }
+  // List orders
+  else {
+    if (count($orders[$date])) {
+      $order_strings = array();
+      foreach ($orders[$date] as $user => $order) {
+        $order_strings[] = "$user: $order";
+      }
+      $message = "[Orders for $date] " . implode(' | ', $order_strings);
+    }
+    else {
+      $message = "No orders have been placed today! ($date)";
+    }
+    bot_message($to, $message);
+  }
+}
+
+/**
  * Summon
  *
  * @command ?summon <message>
  */
 function bot_fourkitchens_summon($to, $data, $matches) {
   global $irc;
-  bot_message($to, implode(', ', array_keys($irc->channel[$data->channel]->users)) . ' ' . $matches[1]);
+  bot_message($to, $matches[1] . ' /cc: ' . implode(', ', array_keys($irc->channel[$data->channel]->users)));
 }
 
 /**
@@ -21,6 +61,12 @@ function bot_fourkitchens_google($to, $data, $matches) {
     $response = drupal_http_request($google_url, array('User-Agent' => 'Drupal IRC Bot +(http://drupal.com/project/bot)'));
     if ($response->code == 200 && ($results = json_decode($response->data))) {
       bot_message($to, $data->nick . ': ' . $results->responseData->results[0]->url . ' - ' . strip_tags($results->responseData->results[0]->content));
+    }
+    else if ($response->code !== 200) {
+      bot_message($to, $data->nick . ": I couldn't connect to google.");
+    }
+    else {
+      bot_message($to, $data->nick . ": 0 results.");
     }
   }
 }
@@ -40,6 +86,9 @@ function bot_fourkitchens_urban_dictionary($to, $data, $matches) {
   if ($term && $def) {
     bot_message($to, $data->nick . ": $term - $def");
   }
+  else {
+    bot_message($to, $data->nick . ": 0 results.");
+  }
 }
   
 /**
@@ -49,8 +98,7 @@ function bot_fourkitchens_urban_dictionary($to, $data, $matches) {
  */
 function bot_fourkitchens_weather($to, $data, $matches) {
   $url = 'http://www.google.com/ig/api?weather=' . urlencode($matches[1]);
-  $xml = file_get_contents($url);
-  if ($xml) {
+  if ($xml = file_get_contents($url)) {
     $xml = new SimpleXMLElement($xml);
     if (count($xml->weather->children()) > 1) {
       $condition = (string) $xml->weather->current_conditions->condition['data'];
@@ -58,9 +106,16 @@ function bot_fourkitchens_weather($to, $data, $matches) {
       $temp_c = (string) $xml->weather->current_conditions->temp_c['data'];
       $humidity = (string) $xml->weather->current_conditions->humidity['data'];
       $wind = (string) $xml->weather->current_conditions->wind_condition['data'];
+      
       bot_message($to, sprintf("%s: %s, %s | %s F / %s C | %s | %s", 
         $data->nick, $matches[1], $condition, $temp, $temp_c, $humidity, $wind));
     }
+    else {
+      bot_message($to, $data->nick . ": " . $matches[1] . " not found.");
+    }
+  }
+  else {
+    bot_message($to, $data->nick . ": Error fetching weather data.");
   }
 }
 

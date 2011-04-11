@@ -23,6 +23,14 @@
 function bot_fourkitchens_irc_listeners() {
   $items = array();
   
+  $items['/^\?order\s*(.*)/i'] = array(
+    'title' => 'An simple system for placing food orders.',
+    'callback' => 'bot_fourkitchens_order',  
+  );
+  $items['/^\?all\s(.*)$/i'] = array(
+    'title' => 'Summon everyone.',
+    'callback' => 'bot_fourkitchens_summon',
+  );  
   $items['/^\?summon\s(.*)$/i'] = array(
     'title' => 'Summon everyone.',
     'callback' => 'bot_fourkitchens_summon',
@@ -130,8 +138,7 @@ function bot_fourkitchens_route_listeners($to, $data) {
   foreach (bot_fourkitchens_get_listeners() as $regex => $info) {
     $matches = array();
     
-    preg_match($regex, $data->message, $matches);
-    if (count($matches)) {
+    if (preg_match($regex, $data->message, $matches)) {
       // Enforce whitelist of present.
       if (count($info['whitelist'])) {
         if (!in_array($data->channel, $info['whitelist'])) {
@@ -146,6 +153,7 @@ function bot_fourkitchens_route_listeners($to, $data) {
         }
       }
       
+      // Enforce probability.
       $rand = rand(0, 100);
       if ($info['probability'] == 100 || $rand <= $info['probability']) {
         call_user_func_array($info['callback'], array($to, $data, $matches));
@@ -203,7 +211,7 @@ function bot_fourkitchens_admin($form) {
 }
 
 /**
- * Listen for all sorts of stuff
+ * Listen for all sorts of stuff.
  *
  * @param $data
  *   The regular $data object prepared by the IRC library.
@@ -222,6 +230,9 @@ function bot_fourkitchens_irc_msg_query($data) {
   bot_fourkitchens_irc_msg_channel($data, TRUE);
 }
 
+/**
+ * Include the simple_html_dom library.
+ */
 function bot_fourkitchens_include_simple_html_dom() {
   static $included = FALSE;
   if (!$included) {

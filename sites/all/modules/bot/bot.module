@@ -6,6 +6,11 @@
  * Enables a network and plugin framework for IRC bots.
  */
 
+define('BOT_STATUS_DISCONNECTED',  0);
+define('BOT_STATUS_CONNECTING',    1);
+define('BOT_STATUS_CONNECTED',     2);
+define('BOT_STATUS_DISCONNECTING', 3);
+
 /**
  * Implementation of hook_help().
  */
@@ -101,6 +106,19 @@ function bot_irc_bot_cron_fastest() {
       $irc->join($channel_parts[0], isset($channel_parts[1]) ? $channel_parts[1] : NULL);
       break; // we only join one channel per 15 seconds, to prevent overloading.
     }
+  }
+
+  variable_set('bot_status', BOT_STATUS_CONNECTED);
+
+  // Disconnect if directed.
+  if (!lock_may_be_available('bot_disconnect')) {
+    $irc->disconnect();
+    variable_del('bot_status');
+  }
+
+  // Log the current status for debugging purposes.
+  if (function_exists('_bot_drush_log_status')) {
+    _bot_drush_log_status(_bot_get_status());
   }
 }
 
