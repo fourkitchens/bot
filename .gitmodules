@@ -1,3 +1,6 @@
 [submodule "sites/all/modules/bot_fourkitchens"]
 	path = sites/all/modules/bot_fourkitchens
 	url = git@github.com:fourkitchens/bot_fourkitchens.git
+[submodule "sites/all/modules/bot_alarm"]
+	path = sites/all/modules/bot_alarm
+	url = http://git.drupal.org/project/bot_alarm.git
