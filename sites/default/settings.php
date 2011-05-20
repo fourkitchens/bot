@@ -201,7 +201,7 @@ $cookie_domain = 'fourkitchens.com';
  *
  * Remove the leading hash signs to enable.
  */
-# $conf = array(
+$conf = array(
 #   'site_name' => 'My Drupal site',
 #   'theme_default' => 'minnelli',
 #   'anonymous' => 'Visitor',
@@ -230,7 +230,7 @@ $cookie_domain = 'fourkitchens.com';
  * about this setting, do not have a reverse proxy, or Drupal operates in
  * a shared hosting environment, this setting should be set to disabled.
  */
-#   'reverse_proxy' => TRUE,
+  'reverse_proxy' => TRUE,
 /**
  * reverse_proxy accepts an array of IP addresses.
  *
@@ -241,8 +241,8 @@ $cookie_domain = 'fourkitchens.com';
  * reverse proxies. Otherwise, the client could directly connect to
  * your web server spoofing the X-Forwarded-For headers.
  */
-#   'reverse_proxy_addresses' => array('a.b.c.d', ...),
-# );
+  'reverse_proxy_addresses' => array('127.0.0.1'),
+);
 
 /**
  * String overrides:
@@ -257,3 +257,21 @@ $cookie_domain = 'fourkitchens.com';
 #   'forum'      => 'Discussion board',
 #   '@count min' => '@count minutes',
 # );
+
+// Bakery settings.
+$conf['bakery_domain'] = "fourkitchens.com";
+$conf['bakery_freshness'] = "259200";
+$conf['bakery_help_text'] =  "Otherwise you can contact the site administrators.";
+$conf['bakery_is_master'] = 0;
+$conf['bakery_key'] = "WeMakeBigWebsites";
+$conf['bakery_master'] = "http://fourkitchens.com/";
+$conf['bakery_supported_fields'] = array(
+  'name' => 'name',
+  'mail' => 'mail',
+  'status' => 'status',
+  'picture' => 'picture',
+  'language' => 'language',
+  'signature' => 'signature',
+  'timezone' => 'timezone',
+);
+
