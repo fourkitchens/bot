@@ -4,3 +4,6 @@
 [submodule "sites/all/modules/bot_alarm"]
 	path = sites/all/modules/bot_alarm
 	url = http://git.drupal.org/project/bot_alarm.git
+[submodule "sites/all/modules/bot_eval"]
+	path = sites/all/modules/bot_eval
+	url = http://git.drupal.org/project/bot_eval.git
