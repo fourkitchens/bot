@@ -1,13 +1,12 @@
-; $Id: bot_social.info,v 1.1 2010/09/05 20:01:12 garrettalbright Exp $
 name = Bot Social
 package = Bot
 dependencies[] = bot
 description = "Fetches and echoes Twitter statuses."
 core = 6.x
 php = 5.2
-; Information added by drupal.org packaging script on 2010-11-14
+; Information added by drupal.org packaging script on 2011-02-25
 version = "6.x-1.x-dev"
 core = "6.x"
 project = "bot_social"
-datestamp = "1289693137"
+datestamp = "1298618908"
 
